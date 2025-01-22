@@ -34,4 +34,24 @@ class CustomerController
         session()->flash('successMessage', 'Customer created successfully');
         return redirect()->action([self::class, 'index']);
     }
+
+    public function show(string $id)
+    {
+        return "Show $id";
+    }
+
+    public function edit(string $id)
+    {
+        return "Edit $id";
+    }
+
+    public function update(string $id)
+    {
+        return "Update $id";
+    }
+
+    public function destroy(string $id)
+    {
+        return "Destroy $id";
+    }
 }
