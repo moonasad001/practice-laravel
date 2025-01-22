@@ -12,6 +12,17 @@ Route::get('/', function () {
 // V = View
 // C = Controller
 
-Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
-Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+Route::group(['prefix' => 'customers'], function () {
+    Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/', [CustomerController::class, 'store'])->name('customers.store');
+});
+
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'as' => 'admin.'], function () {
+    Route::resource('photos', 'PhotoController')->except(["show"]);
+    Route::resource('movies', 'PhotoController');
+
+    Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
+        Route::resource('catagories', 'PhotoController');
+    });
+});
